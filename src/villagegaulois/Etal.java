@@ -30,6 +30,9 @@ public class Etal {
 	}
 
 	public String libererEtal() {
+		if (!this.etalOccupe) {
+			throw new NullPointerException();
+		}
 		etalOccupe = false;
 		StringBuilder chaine = new StringBuilder(
 				"Le vendeur " + vendeur.getNom() + " quitte son étal, ");
