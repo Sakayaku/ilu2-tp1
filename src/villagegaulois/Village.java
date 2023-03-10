@@ -3,13 +3,22 @@ package villagegaulois;
 import personnages.Chef;
 import personnages.Gaulois;
 
-public class Village {
+public class Village  {
 	private String nom;
 	private Chef chef;
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
 	private Marche marche;
 
+	public class VillageSansChefException extends NullPointerException{
+		private static final long serialVersionUID=1L;
+		public VillageSansChefException() {
+			
+		}
+		public VillageSansChefException(String message) {
+			super(message);
+		}
+	}
 	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
@@ -113,7 +122,10 @@ public class Village {
 		return null;
 	}
 
-	public String afficherVillageois() {
+	public String afficherVillageois() throws VillageSansChefException {
+		if (this.chef==null) {
+			throw new VillageSansChefException();
+		}
 		StringBuilder chaine = new StringBuilder();
 		if (nbVillageois < 1) {
 			chaine.append("Il n'y a encore aucun habitant au village du chef " + chef.getNom() + ".\n");
